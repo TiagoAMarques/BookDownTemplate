@@ -1,0 +1,19 @@
+bookdown::gitbook:
+  lib_dir: "book_assets"
+  config:
+    sharing: null
+    edit: null
+    download: ["pdf"]
+  split_by: chapter
+  highlight: pygments
+  css: 'style.css'
+  includes:
+    in_header: '_toggle.html'
+    
+bookdown::pdf_book:
+  keep_tex: TRUE
+  citation_package: natbib
+  latex_engine: xelatex
+  includes:
+    in_header: preamble.tex
+    after_body: afterbody.tex

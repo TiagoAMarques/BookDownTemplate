@@ -1,0 +1,65 @@
+/* Style the figure/table captions.  use #c60c46 for st andrews dark green of #231f20 for black */
+p.caption {
+  color: #005953;
+  margin-top: 10px;
+}
+p code {
+  white-space: inherit;
+}
+pre {
+  word-break: normal;
+  word-wrap: normal;
+}
+pre code {
+  white-space: inherit;
+}
+button {
+    background-color: #007dc5;
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.panel-default > .panel-heading {
+    background-image: none;
+    background-color: #00539b;
+    color: white;
+    border-color: #00539b;
+}
+
+.panel-default > .panel-heading1 {
+    background-image: none;
+    background-color: #006962;
+    color: white;
+    border-color: #006962;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: #b2b2b2
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #808080;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #007870;
+}
+
+/* Create colour scheme for examples */
+div.example {
+    background-image: none;
+    background-color: #d1d1d1;
+    color: #00539b;
+    border-color: #00539b;
+}

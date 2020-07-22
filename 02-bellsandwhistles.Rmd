@@ -1,0 +1,316 @@
+# Bells and Whistles {#bellsandwhistles}
+
+Chapter \@ref(intro) briefly introduces the basic features of R Markdown and bookdown. For full details please refer to:
+
+* [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/)
+* [bookdown: Authoring Books and Technical Documents with R Markdown](https://bookdown.org/yihui/bookdown/)
+
+In this Chapter we are going to introduce *extra* features/environments exclusive to the St Andrews template. Big thanks to [TJ McKinley](https://github.com/tjmckinley/RtutorialSkeleton) for sharing with us the code for these features.  
+
+## Task and solution block
+
+The `task` block can be used to set exercises for the students. The `solution` block reveals the answer to the student (if enabled; more on that later). For the gitbook/HTML version 
+there is a toggle button `Show Solution` that reveals the answer. In the PDF version, there is a hyperlink to take the reader to the solutions, which are in the appendix. There is also a link to get back to the place in the text from the appendix. 
+
+The `task` block is used as follows. For example: 
+
+````
+```{task}`r ''`
+Here is a task written in **markdown**.
+```
+````
+
+which renders as:
+
+```{task}
+Here is a task written in **markdown**.
+```
+
+You can include chunks within the `task` chunk, but you need to use double backticks *within* the chunk, and leave carriage returns around the internal chunk. For example: 
+
+````
+
+```{task}`r ''`
+
+``{r}
+x <- 2 + 2
+x
+``
+
+```
+
+````
+
+which renders as:
+
+```{task}
+
+``{r}
+x <- 2 + 2
+x
+``
+
+```
+
+Be careful to have suitable carriage returns around e.g. `enumerate` or `itemize` environments inside the chunk also. For example:
+
+````
+
+```{task}`r ''`
+Here is a list:
+1. item 1
+2. item 2
+```
+
+```` 
+
+will not render nicely. But
+
+````
+
+```{task}`r ''`
+Here is a list:
+
+1. item 1
+2. item 2
+
+```
+
+```` 
+
+will:
+
+```{task}
+Here is a list:
+
+1. item 1
+2. item 2
+
+```
+
+The `solution` chunk works in the same way, and the numbers will follow the previous `task` chunk (so you can set tasks without solutions). For example:
+
+````
+
+```{task}`r ''`
+Add 2 and 2 together
+```
+
+```{solution}`r ''`
+
+``{r}
+2 + 2
+``
+
+```
+
+````
+
+gives:
+
+```{task}
+Add 2 and 2 together
+```
+
+```{solution}
+
+``{r}
+2 + 2
+``
+
+```
+
+
+## Different task and solution titles
+
+`task` and `solution` boxes can be given different names using the `title` option (these can be set globally if preferred). For example:
+
+````
+
+```{task, title = "Question"}`r ''`
+Produce a scatterplot of `mpg` against `hp`. What does the relationship look like?
+```
+
+```{solution, title = "Answer"}`r ''`
+
+``{r}
+plot(hp ~ mpg, data = mtcars, 
+  pch=19, col='darkgrey')
+``
+
+```
+
+````
+
+renders as:
+
+```{task, title = "Question"}
+Produce a scatterplot of `mpg` against `hp`. What does the relationship look like?
+```
+
+```{solution, title = "Answer"}
+
+``{r}
+plot(hp ~ mpg, data = mtcars, 
+  pch=19, col='darkgrey')
+``
+
+```
+
+## Two-tabbed solution
+
+You can have a task with **two** different solutions side-by-side, using the `multCode = T` option to the solution box. For example, you may want to show a solution using both base `R` and `tidyverse`. Here the two tabs are separated by four consecutive hashes: `####`, and the `titles` option gives the tab titles (these can be set globally if preferred). For example:
+
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
+library(ggplot2)
+```
+
+````
+
+```{task}`r ''`
+Produce a scatterplot of `mpg` against `hp`. What does the relationship look like?
+```
+
+```{solution, multCode=T, titles = c("Base R", "tidyverse")}`r ''`
+
+``{r, fig.height=6, fig.width=6, out.width = "60%"}
+plot(hp ~ mpg, data = mtcars,
+     pch=19, col='darkgrey')
+``
+
+The plot suggests that a linear relationship might exist between the two variables. 
+So we can proceed by fitting a linear model in R.
+
+####
+
+``{r, fig.height=6, fig.width=6, out.width = "60%"}
+ggplot(mtcars) +
+    geom_point(aes(x = mpg, y = hp))
+``
+
+The plot suggests that a linear relationship might exist between the two variables. 
+So we can proceed by fitting a linear model in R.
+    
+```
+````
+
+will render as:
+
+```{task}
+Produce a scatterplot of `mpg` against `hp`. What does the relationship look like?
+```
+
+```{solution, multCode=T, titles = c("Base R", "tidyverse")}
+
+``{r, fig.height=6, fig.width=6, out.width = "60%"}
+plot(hp ~ mpg, data = mtcars,
+     pch=19, col='darkgrey')
+``
+
+The plot suggests that a linear relationship might exist between the two variables. 
+So we can proceed by fitting a linear model in R.
+
+####
+
+``{r, fig.height=6, fig.width=6, out.width = "60%"}
+ggplot(mtcars) +
+    geom_point(aes(x = mpg, y = hp))
+``
+
+The plot suggests that a linear relationship might exist between the two variables. 
+So we can proceed by fitting a linear model in R.
+
+```
+
+## Multi-tabbed options
+
+You can also have just the multicode part (not embedded within the solution panel.). These appear side-by-side in the PDF document. Note that currently you can only have **two** tabs. For example:
+
+````
+
+```{multCode, titles=c('Part A', 'Part B')}`r ''`
+
+Two options: 
+
+* Option 1 - This is some text for part A
+
+####
+
+Two options:
+    
+* Option 2 - This is some text for part B
+
+```
+
+````
+
+will typeset to:
+
+```{multCode, titles=c('Part A', 'Part B')}
+
+Two options: 
+
+* Option 1 - This is some text for part A
+
+####
+
+Two options:
+    
+* Option 2 - This is some text for part B
+
+```
+
+
+## Task with held solutions
+
+In the solution chunk header, if `renderSol=FALSE` then the solutions are not rendered as part of the book. For example:
+
+````
+
+```{task, title='Task (solution hidden)'}`r ''`
+Produce a scatterplot of `mpg` against `hp`. What does the relationship look like?
+```
+
+```{solution, renderSol=FALSE}`r ''`
+
+``{r}
+plot(hp ~ mpg, data = mtcars, 
+  pch=19, col='darkgrey')
+``
+
+This is my solution which you will only see if `renderSol` is set to `TRUE`.
+
+```
+
+````
+
+will render as:
+
+```{task, title='Task (solution hidden)'}
+Produce a scatterplot of `mpg` against `hp`. What does the relationship look like?
+```
+
+```{solution, renderSol=FALSE}
+
+``{r}
+plot(hp ~ mpg, data = mtcars, 
+  pch=19, col='darkgrey')
+``
+
+This is my solution which you will only see if `renderSol` is set to `TRUE`.
+
+```
+
+By default, in `_setup.Rmd`, `renderSol` is set to `TRUE`. If one of your chapters is a tutorial/practical, and you want to release the answers later on in the course, 
+it can become tedious having to set `renderSol` to `FALSE` for every question. 
+Instead, you can override this default at the beginning of each chapter, so you can turn on/off the solutions, as follows:
+
+````
+
+``{r, include=F}
+opts_chunk$set(renderSol=FALSE)
+``
+
+````
+
+**Note** that the chunk above changes everything after the chunk, so later chapters will retain this change unless you reset it. 

@@ -1,0 +1,18 @@
+book_filename: "StAndrewsTemplate"
+language:
+  ui:
+    chapter_name: "Chapter "
+delete_merged_file: true
+rmd_files:
+  html: ["index.Rmd", 
+        "01-intro.Rmd", 
+        "02-bellsandwhistles.Rmd", 
+        "03-summary.Rmd", 
+        "04-references.Rmd"]
+  latex: ["index.Rmd", 
+        "01-intro.Rmd", 
+        "02-bellsandwhistles.Rmd", 
+        "03-summary.Rmd",  
+        "04-references.Rmd", 
+        "05-ch_appendix.Rmd"]
+output_dir: "docs"

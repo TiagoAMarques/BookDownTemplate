@@ -1,0 +1,11 @@
+# ignore backup files
+.DS_Store
+.Rproj.user
+.Rhistory
+.RData
+
+# ignore compiled files
+_book
+_bookdown_files
+docs/
+faithfulshiny/
